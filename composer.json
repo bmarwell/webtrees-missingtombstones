@@ -1,0 +1,21 @@
+{
+	"autoload" : {
+		"psr-4" : {
+			"BMarwell\\Webtrees-missingtombstones\\" : "src"
+		}
+	},
+	"name" : "BMarwell/webtrees-missingtombstones",
+	"type" : "MISSINGTOMBSTONE",
+	"description" : "Creates a report about missing tombstones",
+	"license" : "GPLv3",
+	"require" : {
+		"php" : ">=5.4",
+		"fisharebest/webtrees" : "1.6.2"
+	},
+	"authors" : [{
+			"name" : "Benjamin Marwell",
+			"email" : "bmarwell@gmail.com",
+			"homepage" : "http://www.bmarwell.de/"
+		}
+	]
+}
