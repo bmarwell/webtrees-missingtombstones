@@ -23,12 +23,12 @@ on tombstones, gravestones, headstones (like birth year, year of death, maiden n
 
 ### Verification
 To see if it works, open this link: 
-    module.php?mod=missingtombstones&mod_action=general
+    `module.php?mod=missingtombstones&mod_action=general`
 
 There is no menu link yet, and no parameter for the number of years.
 
 ### Links
-* Forum discussion: [Webtrees: Missing Tombstones](To be done).
+* Forum discussion: [Webtrees: Missing Tombstones](http://www.webtrees.net/index.php/en/forum/4-customising/30329-missing-tombstones-module#53294).
 * The parent project’s website is [webtrees.net](http://webtrees.net).
 * German Description: [Webtrees-Module](https://www.bmarwell.de/projekte/webtrees-module/).
 
