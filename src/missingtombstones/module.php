@@ -13,15 +13,43 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-use WT\Auth;
-include_once WT_MODULES_DIR . 'missingtombstones/TombstoneSearch.php';
-require_once WT_ROOT . 'includes/functions/functions_print_lists.php';
-class missingtombstones_WT_Module extends WT_Module implements WT_Module_Config {
+
+namespace bmarwell\WebtreesModules\MissingTombstones;
+
+use Fisharebest\webtrees\Auth;
+use Fisharebest\webtrees\Controller\SearchController;
+
+use Composer\Autoload\ClassLoader;
+use Fisharebest\Webtrees\Family;
+use Fisharebest\Webtrees\Filter;
+use Fisharebest\Webtrees\GedcomRecord;
+use Fisharebest\Webtrees\Individual;
+use Fisharebest\Webtrees\Media;
+use Fisharebest\Webtrees\Menu;
+use Fisharebest\Webtrees\Module\AbstractModule;
+use Fisharebest\Webtrees\Module\ModuleConfigInterface;
+use Fisharebest\Webtrees\Module\ModuleMenuInterface;
+use Fisharebest\Webtrees\Module\ModuleTabInterface;
+use Fisharebest\Webtrees\Note;
+use Fisharebest\Webtrees\Repository;
+use Fisharebest\Webtrees\Source;
+
+//require_once WT_ROOT . 'includes/functions/functions_print_lists.php';
+
+class MissingTombstones extends AbstractModule implements ModuleMenuInterface, ModuleConfigInterface {
 	/*
 	 * ***************************
 	 * Module configuration
 	 * ***************************
 	 */
+
+    /**
+     * @return string
+     */
+    public function getName() {
+        return "missingtombstones";
+    }
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -40,7 +68,7 @@ class missingtombstones_WT_Module extends WT_Module implements WT_Module_Config 
 	 * {@inheritdoc}
 	 */
 	public function defaultAccessLevel() {
-		return WT_PRIV_PUBLIC;
+		return Auth::PRIV_PRIVATE;
 	}
 	
 	/**
@@ -52,13 +80,13 @@ class missingtombstones_WT_Module extends WT_Module implements WT_Module_Config 
 		switch ($modAction) {
 			default :
 				global $controller;
-				$controller = new WT_Controller_Search ();
-				$controller->setPageTitle ( "Tombstone Report" )
-				->pageHeader ()
-				->addExternalJavascript ( WT_STATIC_URL . 'js/autocomplete.js' )
-				->addInlineJavascript ( 'autocomplete();' );
+				$controller = new TombstoneSearch();
+				$controller->setPageTitle("Tombstone Report")
+				->pageHeader()
+				->addExternalJavascript(WT_STATIC_URL . 'js/autocomplete.js')
+				->addInlineJavascript('autocomplete();');
 				$controller->action = "general";
-				$controller->myindilist = $this->getIndividualsWithoutTombstone ();
+				$controller->advancedSearch();
 				$controller->printResults ();
 				break;
 		}
@@ -71,9 +99,27 @@ class missingtombstones_WT_Module extends WT_Module implements WT_Module_Config 
 		return 'module.php?mod=' . $this->getName () . '&amp;mod_action=admin_config';
 	}
 	
-	protected function getIndividualsWithoutTombstone() {
-		$ts = new TombstoneSearch ();
-		
-		return $ts->advancedSearch ();
-	}
+    /**
+     * The user can re-order menus.  Until they do, they are shown in this order.
+     *
+     * @return int
+     */
+    public function defaultMenuOrder()
+    {
+        return 99;
+    }
+
+    /**
+     * A menu, to be added to the main application menu.
+     *
+     * @return Menu|null
+     */
+    public function getMenu()
+    {
+        $menu = new Menu("Missing Tombstones");
+
+        return $menu;
+    }
 }
+
+return new MissingTombstones();

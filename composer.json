@@ -10,7 +10,7 @@
 	"license" : "GPLv3",
 	"require" : {
 		"php" : ">=5.4",
-		"fisharebest/webtrees" : "1.6.2"
+		"fisharebest/webtrees" : "1.7.2"
 	},
 	"authors" : [{
 			"name" : "Benjamin Marwell",

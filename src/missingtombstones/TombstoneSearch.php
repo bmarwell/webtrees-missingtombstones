@@ -14,18 +14,30 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-// use WT_Date;
-// use WT_Date_Gregorian;
+namespace bmarwell\WebtreesModules\MissingTombstones;
 
-class TombstoneSearch {
-	
-	private static function findMedia($person) {
+use Fisharebest\Webtrees\Controller\SearchController;
+use Fisharebest\Webtrees\Database;
+use Fisharebest\Webtrees\Date;
+use Fisharebest\Webtrees\Individual;
+use Fisharebest\Webtrees\Media;
+
+;
+
+class TombstoneSearch extends SearchController {
+
+    /**
+     * @param Individual $person
+     * @return Media[]
+     * @throws \Exception
+     */
+    private static function findMedia($person) {
 		$media = array();
 		$matches = array();
 		
 		preg_match_all('/\n(\d) OBJE @(' . WT_REGEX_XREF . ')@/', $person->getGedcom(), $matches, PREG_SET_ORDER);
 		foreach ($matches as $match) {
-			$media[] = WT_Media::getInstance($match[2]);
+			$media[] = Media::getInstance($match[2]);
 		}
 		
 		return $media;
@@ -47,14 +59,14 @@ class TombstoneSearch {
 	 *
 	 * @return array of individuals.
 	 */
-	public static function advancedSearch($startyear = null) {
+	public function advancedSearch($startyear = null) {
 		if (empty($startyear)) {
 			$startyear = date("Y") - 30;
 		}
 		
 		$myindilist = array();
 		$bind = array();
-		$date = WT_Date::parseDate($startyear);
+		$date = new Date($startyear);
 	
 		// Dynamic SQL query, plus bind variables
 		$sql = "SELECT DISTINCT 
@@ -71,13 +83,13 @@ class TombstoneSearch {
 					AND i_d.d_type='@#DGREGORIAN@' 
 					AND i_d.d_julianday1>=?";
 		$bind[] = WT_GED_ID;
-		$bind[] = $date->minJD;
+		$bind[] = $date->minimumDate();
 
-		$rows = WT_DB::prepare($sql)
+		$rows = Database::prepare($sql)
 				->execute($bind)->fetchAll();
 		
 		foreach ($rows as $row) {
-			$person = WT_Individual::getInstance($row->xref, $row->gedcom_id, $row->gedcom);
+			$person = Individual::getInstance($row->xref, $row->gedcom_id, $row->gedcom);
 			
 			if (!static::personHasTombstone($person)) {
 				$myindilist[] = $person;
@@ -86,7 +98,7 @@ class TombstoneSearch {
 			// next one
 		}
 		
-		return $myindilist;
+		$this->myindilist = $myindilist;
 	}
 }
 
