@@ -22,8 +22,6 @@ use Fisharebest\Webtrees\Date;
 use Fisharebest\Webtrees\Individual;
 use Fisharebest\Webtrees\Media;
 
-;
-
 class TombstoneSearch extends SearchController {
 
     /**
@@ -60,6 +58,8 @@ class TombstoneSearch extends SearchController {
 	 * @return array of individuals.
 	 */
 	public function advancedSearch($startyear = null) {
+        global $WT_TREE;
+
 		if (empty($startyear)) {
 			$startyear = date("Y") - 30;
 		}
@@ -82,8 +82,8 @@ class TombstoneSearch extends SearchController {
 					AND i_d.d_fact='DEAT' 
 					AND i_d.d_type='@#DGREGORIAN@' 
 					AND i_d.d_julianday1>=?";
-		$bind[] = WT_GED_ID;
-		$bind[] = $date->minimumDate();
+		$bind[] = $WT_TREE->getTreeId();
+		$bind[] = $date->minimumDate(); // TODO: Convert
 
 		$rows = Database::prepare($sql)
 				->execute($bind)->fetchAll();

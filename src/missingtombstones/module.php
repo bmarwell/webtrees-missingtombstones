@@ -17,31 +17,40 @@
 namespace bmarwell\WebtreesModules\MissingTombstones;
 
 use Fisharebest\webtrees\Auth;
-use Fisharebest\webtrees\Controller\SearchController;
 
 use Composer\Autoload\ClassLoader;
-use Fisharebest\Webtrees\Family;
 use Fisharebest\Webtrees\Filter;
-use Fisharebest\Webtrees\GedcomRecord;
-use Fisharebest\Webtrees\Individual;
-use Fisharebest\Webtrees\Media;
 use Fisharebest\Webtrees\Menu;
 use Fisharebest\Webtrees\Module\AbstractModule;
 use Fisharebest\Webtrees\Module\ModuleConfigInterface;
 use Fisharebest\Webtrees\Module\ModuleMenuInterface;
-use Fisharebest\Webtrees\Module\ModuleTabInterface;
-use Fisharebest\Webtrees\Note;
-use Fisharebest\Webtrees\Repository;
-use Fisharebest\Webtrees\Source;
 
-//require_once WT_ROOT . 'includes/functions/functions_print_lists.php';
-
+/**
+ * Class MissingTombstones
+ * @package bmarwell\WebtreesModules\MissingTombstones
+ */
 class MissingTombstones extends AbstractModule implements ModuleMenuInterface, ModuleConfigInterface {
 	/*
 	 * ***************************
 	 * Module configuration
 	 * ***************************
 	 */
+    /** @var string location of the fancy treeview module files */
+    var $directory;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __construct()
+    {
+        parent::__construct('MissingTombstones');
+        $this->directory = WT_MODULES_DIR . $this->getName();
+        $this->action = Filter::get('mod_action');
+        // register the namespaces
+        $loader = new ClassLoader();
+        $loader->addPsr4('bmarwell\\WebtreesModules\\MissingTombstones\\', $this->directory);
+        $loader->register();
+    }
 
     /**
      * @return string
