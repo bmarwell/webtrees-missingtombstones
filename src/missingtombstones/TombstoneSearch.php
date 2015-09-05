@@ -30,12 +30,14 @@ class TombstoneSearch extends SearchController {
      * @throws \Exception
      */
     private static function findMedia($person) {
+        global $WT_TREE;
+
 		$media = array();
 		$matches = array();
 		
 		preg_match_all('/\n(\d) OBJE @(' . WT_REGEX_XREF . ')@/', $person->getGedcom(), $matches, PREG_SET_ORDER);
 		foreach ($matches as $match) {
-			$media[] = Media::getInstance($match[2]);
+			$media[] = Media::getInstance($match[2], $WT_TREE);
 		}
 		
 		return $media;
@@ -83,13 +85,13 @@ class TombstoneSearch extends SearchController {
 					AND i_d.d_type='@#DGREGORIAN@' 
 					AND i_d.d_julianday1>=?";
 		$bind[] = $WT_TREE->getTreeId();
-		$bind[] = $date->minimumDate(); // TODO: Convert
+		$bind[] = $date->minimumJulianDay();
 
 		$rows = Database::prepare($sql)
 				->execute($bind)->fetchAll();
 		
 		foreach ($rows as $row) {
-			$person = Individual::getInstance($row->xref, $row->gedcom_id, $row->gedcom);
+			$person = Individual::getInstance($row->xref, $WT_TREE);
 			
 			if (!static::personHasTombstone($person)) {
 				$myindilist[] = $person;

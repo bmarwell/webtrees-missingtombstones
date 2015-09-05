@@ -95,8 +95,9 @@ class MissingTombstones extends AbstractModule implements ModuleMenuInterface, M
 				->addExternalJavascript(WT_STATIC_URL . 'js/autocomplete.js')
 				->addInlineJavascript('autocomplete();');
 				$controller->action = "general";
+				$controller->query = "missingtombstones";
 				$controller->advancedSearch();
-				$controller->printResults ();
+				$controller->printResults();
 				break;
 		}
 	}
