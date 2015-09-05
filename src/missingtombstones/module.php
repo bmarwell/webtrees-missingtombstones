@@ -126,7 +126,8 @@ class MissingTombstones extends AbstractModule implements ModuleMenuInterface, M
      */
     public function getMenu()
     {
-        $menu = new Menu("Missing Tombstones");
+        $link = "module.php?mod=missingtombstones&mod_action=general";
+        $menu = new Menu("Missing Tombstones", $link);
 
         return $menu;
     }
