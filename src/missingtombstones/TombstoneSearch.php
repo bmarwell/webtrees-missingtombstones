@@ -37,12 +37,20 @@ class TombstoneSearch extends SearchController {
 		
 		preg_match_all('/\n(\d) OBJE @(' . WT_REGEX_XREF . ')@/', $person->getGedcom(), $matches, PREG_SET_ORDER);
 		foreach ($matches as $match) {
-			$media[] = Media::getInstance($match[2], $WT_TREE);
+			$mediafound = Media::getInstance($match[2], $WT_TREE);
+			if (nul === $media) {
+				continue;
+			}
+			$media[] =
 		}
 		
 		return $media;
 	}
-	
+
+	/**
+	 * @param Individual $person
+	 * @return bool
+     */
 	private static function personHasTombstone($person) {
 		$linkedMedia = static::findMedia($person);
 		foreach ($linkedMedia as $media) {
