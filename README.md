@@ -11,21 +11,21 @@
 
 ### Introduction
 
-This module for webtrees (currently 1.6.x only) will create a list of persons, deceased in the past 30 years,
-who do not have a media type = tombstone attached. This is useful, if you need to add data which can be found
+This module for webtrees 1.7.x  will create a list of persons, deceased in the past 30 years,
+who do not have any media of `type = tombstone` attached. This is useful, if you need to add data which can be found
 on tombstones, gravestones, headstones (like birth year, year of death, maiden name). Headstones are also a historical and 
 [cultural property](https://en.wikipedia.org/wiki/Cultural_property), which should be preserved.
 
 
 ### Installation
-1. Copy the folder src/missingtombstones (only the subfolder) to your webtrees/modules_v3-folder.
+1. Copy the folder `src/missingtombstones` (only the subfolder) to your `webtrees/modules_v3`-folder.
 2. Go to the admin menu and modules, then enable the Missing Tombstones-Module.
 
 ### Verification
 To see if it works, open this link: 
     `module.php?mod=missingtombstones&mod_action=general`
 
-There is no menu link yet, and no parameter for the number of years.
+There should also be a menu link in the reports menu.
 
 ### Links
 * Forum discussion: [Webtrees: Missing Tombstones](http://www.webtrees.net/index.php/en/forum/4-customising/30329-missing-tombstones-module#53294).
