@@ -42,7 +42,7 @@ class TombstoneSearch extends SearchController {
 			if (null === $media) {
 				continue;
 			}
-            
+
 			$media[] = $mediafound;
 		}
 		

@@ -23,13 +23,13 @@ use Fisharebest\Webtrees\Filter;
 use Fisharebest\Webtrees\Menu;
 use Fisharebest\Webtrees\Module\AbstractModule;
 use Fisharebest\Webtrees\Module\ModuleConfigInterface;
-use Fisharebest\Webtrees\Module\ModuleMenuInterface;
+use Fisharebest\Webtrees\Module\ModuleReportInterface;
 
 /**
  * Class MissingTombstones
  * @package bmarwell\WebtreesModules\MissingTombstones
  */
-class MissingTombstones extends AbstractModule implements ModuleMenuInterface, ModuleConfigInterface {
+class MissingTombstones extends AbstractModule implements ModuleReportInterface, ModuleConfigInterface {
 	/*
 	 * ***************************
 	 * Module configuration
@@ -108,29 +108,23 @@ class MissingTombstones extends AbstractModule implements ModuleMenuInterface, M
 	public function getConfigLink() {
 		return 'module.php?mod=' . $this->getName () . '&amp;mod_action=admin_config';
 	}
-	
-    /**
-     * The user can re-order menus.  Until they do, they are shown in this order.
-     *
-     * @return int
-     */
-    public function defaultMenuOrder()
-    {
-        return 99;
-    }
 
-    /**
-     * A menu, to be added to the main application menu.
-     *
-     * @return Menu|null
-     */
-    public function getMenu()
-    {
-        $link = "module.php?mod=missingtombstones&mod_action=general";
-        $menu = new Menu("Missing Tombstones", $link);
 
-        return $menu;
-    }
+	/**
+	 * Return a menu item for this report.
+	 *
+	 * @return Menu
+	 */
+	public function getReportMenu() {
+		global $WT_TREE;
+
+		return new Menu(
+			$this->getTitle(),
+			'module.php?ged=' . $WT_TREE->getNameUrl() . '&amp;mod=' . $this->getName() . '&amp;mod_action=general',
+			'menu-report-' . $this->getName(),
+			['rel' => 'follow']
+		);
+	}
 }
 
 return new MissingTombstones();
