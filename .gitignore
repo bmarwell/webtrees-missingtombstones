@@ -5,6 +5,7 @@
 /build
 /src/**/*.mo
 *.mo
+*.pot
 
 /.project
 /.buildpath

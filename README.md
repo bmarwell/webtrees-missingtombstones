@@ -18,7 +18,7 @@ on tombstones, gravestones, headstones (like birth year, year of death, maiden n
 
 
 ### Installation
-1. Copy the folder `src/missingtombstones` (only the subfolder) to your `webtrees/modules_v3`-folder.
+1. Extract the `.tar.bz2` file to your `webtrees/modules_v3`-folder.
 2. Go to the admin menu and modules, then enable the Missing Tombstones-Module.
 
 ### Verification
@@ -26,6 +26,10 @@ To see if it works, open this link:
     `module.php?mod=missingtombstones&mod_action=general`
 
 There should also be a menu link in the reports menu.
+
+### Translation
+If you'd like to commit translation files, please send me your `.po` files using a pull request.
+You can generate a `messages.pot`-file using `make update` from the command line.
 
 ### Links
 * Forum discussion: [Webtrees: Missing Tombstones](http://www.webtrees.net/index.php/en/forum/4-customising/30329-missing-tombstones-module#53294).
