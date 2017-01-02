@@ -101,7 +101,7 @@ class MissingTombstones extends AbstractModule implements ModuleReportInterface,
 
         global $controller;
         $controller = new TombstoneSearch();
-        $controller->setPageTitle("Tombstone Report")
+        $controller->setPageTitle($this->getTitle())
           ->pageHeader()
           ->addExternalJavascript(WT_STATIC_URL . 'js/autocomplete.js')
           ->addInlineJavascript('autocomplete();');
@@ -109,7 +109,7 @@ class MissingTombstones extends AbstractModule implements ModuleReportInterface,
         $controller->query = "missingtombstones";
         $controller->advancedSearch($numYears);
 
-        echo "\n<h1>Missing tombstones for the deceased of the last " . $numYears . " years</h1>\n";
+        echo "\n<h1>" . I18N::translate('Missing tombstones for the deceased of the last %s years', $numYears) . "</h1>\n";
 
         $controller->printResults();
         break;

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webtrees-missingtombstones 1.0\n"
 "Report-Msgid-Bugs-To: bmarwell@gmail.com\n"
-"POT-Creation-Date: 2017-01-02 09:44+0100\n"
-"PO-Revision-Date: 2017-01-02 09:36+0100\n"
+"POT-Creation-Date: 2017-01-02 09:50+0100\n"
+"PO-Revision-Date: 2017-01-02 09:49+0100\n"
 "Last-Translator: Benjamin Marwell <bmarwell+blog@gmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -34,6 +34,11 @@ msgstr "In Europa sind das typischerweise etwa 30 Jahre, solange die Familie nic
 msgid "Missing Tombstones"
 msgstr "Fehlende Grabsteine"
 
+#: src/missingtombstones/module.php:112
+#, php-format
+msgid "Missing tombstones for the deceased of the last %s years"
+msgstr "Fehlende Grabsteine für die Verstorbenen der letzten %s Jahre"
+
 #: src/missingtombstones/module.php:153
 msgid "Module administration"
 msgstr ""
@@ -49,3 +54,6 @@ msgstr "Einstellungen gespeichert"
 #: src/missingtombstones/module.php:190
 msgid "save"
 msgstr "Speichern"
+
+#~ msgid "Missing tombstones for the deceased of the last {0} years"
+#~ msgstr "Fehlende Grabsteine für die Verstorbenen der letzten {0} Jahre"
