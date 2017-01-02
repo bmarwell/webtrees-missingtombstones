@@ -1,0 +1,50 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the webtrees-missingtombstones package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: webtrees-missingtombstones 1.0\n"
+"Report-Msgid-Bugs-To: bmarwell@gmail.com\n"
+"POT-Creation-Date: 2017-01-02 09:44+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/missingtombstones/module.php:71
+msgid "Missing Tombstones"
+msgstr ""
+
+#: src/missingtombstones/module.php:78
+msgid "Creates a list about missing tombstones for individuals deceased recently."
+msgstr ""
+
+#: src/missingtombstones/module.php:152
+msgid "Control panel"
+msgstr ""
+
+#: src/missingtombstones/module.php:153
+msgid "Module administration"
+msgstr ""
+
+#: src/missingtombstones/module.php:165
+msgid "Preferences saved"
+msgstr ""
+
+#: src/missingtombstones/module.php:172
+msgid "On this page you can set per tree, how many years a tombstone will exist on a cemetery before it gets removed."
+msgstr ""
+
+#: src/missingtombstones/module.php:173
+msgid "For Europe, a grave will last typically about 30 years, unless the family of the deceased pays for prolongation."
+msgstr ""
+
+#: src/missingtombstones/module.php:190
+msgid "save"
+msgstr ""
