@@ -67,14 +67,15 @@ class TombstoneSearch extends SearchController {
   /**
    * Perform the search
    *
+   * @param $numYearsPast
+   *    The number of years where headstones are expected to be removed.
+   *    Defaults to 30 years.
    * @return array of individuals.
    */
-  public function advancedSearch($startyear = null) {
+  public function advancedSearch($numYearsPast = 30) {
     global $WT_TREE;
 
-    if (empty($startyear)) {
-      $startyear = date("Y") - 30;
-    }
+    $startyear = date("Y") - $numYearsPast;
 
     $myindilist = array();
     $bind = array();
