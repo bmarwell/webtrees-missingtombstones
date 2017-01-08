@@ -24,8 +24,8 @@ before_script:
   - if [ -f "/tmp/xdebug.ini" ]; then phpenv config-add /tmp/xdebug.ini; fi
 
 script:
-  - vendor/bin/phpunit --coverage-clover tests/clover.xml
+  - travis_retry vendor/bin/phpunit --coverage-clover tests/clover.xml
 
 after_script:
-  - vendor/bin/coveralls -v
+  - travis_retry vendor/bin/coveralls -v
 
