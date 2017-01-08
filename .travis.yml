@@ -18,9 +18,9 @@ cache:
     - $HOME/.composer/cache
 
 before_script:
-  - travis_retry composer config github-oauth.github.com "${GITHUB_OAUTH_TOKEN}"
   - if [ -f "$HOME/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini" ]; then cp $HOME/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini /tmp/; phpenv config-rm xdebug.ini; fi
-  - travis_retry composer update
+  - travis_retry composer self-update
+  - travis_retry composer install --ignore-platform-reqs --no-interaction --prefer-source
   - if [ -f "/tmp/xdebug.ini" ]; then phpenv config-add /tmp/xdebug.ini; fi
 
 script:
