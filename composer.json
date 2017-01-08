@@ -13,7 +13,8 @@
 		"fisharebest/webtrees" : "1.7.9"
 	},
         "require-dev": {
-            "phpunit/phpunit": "5.5.*"
+            "phpunit/phpunit": "5.5.*",
+            "satooshi/php-coveralls": "~1.0"
         },
 	"authors" : [{
 			"name" : "Benjamin Marwell",
