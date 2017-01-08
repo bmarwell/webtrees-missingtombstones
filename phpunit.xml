@@ -18,7 +18,13 @@
 
     <testsuites>
         <testsuite name="Module test suite">
+            <directory>test</directory>
         </testsuite>
     </testsuites>
 
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src/missingtombstones</directory>
+        </whitelist>
+    </filter>
 </phpunit>
