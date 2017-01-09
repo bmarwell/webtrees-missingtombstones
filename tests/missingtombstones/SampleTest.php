@@ -1,5 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use bmarwell\WebtreesModules\MissingTombstones\TombstoneSearch;
+use Fisharebest\Webtrees\Individual;
 
 class SampleTest extends TestCase {
   public function testPushAndPop() {
@@ -12,6 +14,11 @@ class SampleTest extends TestCase {
 
     $this->assertEquals('foo', array_pop($stack));
     $this->assertEquals(0, count($stack));
+  }
+
+  public function testHasTombsone() {
+      $hasTs = TombstoneSearch::personHasTombstone(null);
+      $this->assertEquals(false, $hasTs);
   }
 }
 
