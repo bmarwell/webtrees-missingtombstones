@@ -1,7 +1,7 @@
 {
   "autoload" : {
     "psr-4" : {
-      "bmarwell\\WebtreesModules\\MissingTombstones" : "src/"
+      "bmarwell\\WebtreesModules\\MissingTombstones\\" : "src/"
     }
   },
   "name" : "BMarwell/webtrees-missingtombstones",
