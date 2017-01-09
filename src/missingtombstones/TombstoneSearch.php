@@ -53,8 +53,13 @@ class TombstoneSearch extends SearchController {
    * @param Individual $person
    * @return bool
    */
-  private static function personHasTombstone($person) {
+  public static function personHasTombstone($person) {
+    if ($person === NULL) {
+      return false;
+    }
+
     $linkedMedia = static::findMedia($person);
+
     foreach ($linkedMedia as $media) {
       if ($media->getMediaType() === "tombstone") {
         return true;
