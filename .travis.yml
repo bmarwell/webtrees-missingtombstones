@@ -29,5 +29,5 @@ script:
   - travis_retry vendor/bin/phpunit -c phpunit.xml
 
 after_script:
-  - travis_retry vendor/bin/coveralls -v 
+  - if [[ $(phpenv version-name) =~ "7.1" ]]; then travis_retry vendor/bin/coveralls -v; fi
 
