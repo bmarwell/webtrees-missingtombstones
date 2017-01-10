@@ -1,5 +1,6 @@
 # Missing tombstones module for webtrees
 
+[![Coverage Status](https://coveralls.io/repos/github/bmhm/webtrees-missingtombstones/badge.svg?branch=master)](https://coveralls.io/github/bmhm/webtrees-missingtombstones?branch=master) 
 
 ## Contents
 
