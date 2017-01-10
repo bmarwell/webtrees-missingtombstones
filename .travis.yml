@@ -30,4 +30,5 @@ script:
 
 after_script:
   - if [[ $(phpenv version-name) =~ "7.1" ]]; then travis_retry vendor/bin/coveralls -v; fi
+  - if [[ $(phpenv version-name) =~ "7.1" ]]; then travis_retry php vendor/bin/codacycoverage clover build/logs/clover.xml; fi
 
