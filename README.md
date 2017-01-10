@@ -1,6 +1,6 @@
 # Missing tombstones module for webtrees
 
-[![Coverage Status](https://coveralls.io/repos/github/bmhm/webtrees-missingtombstones/badge.svg?branch=master)](https://coveralls.io/github/bmhm/webtrees-missingtombstones?branch=master) [![Build Status](https://travis-ci.org/bmhm/webtrees-missingtombstones.svg?branch=master)](https://travis-ci.org/bmhm/webtrees-missingtombstones) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9c4d0742754545a3b7bde6d521897f9a)](https://www.codacy.com/app/bmarwell/webtrees-missingtombstones?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bmhm/webtrees-missingtombstones&amp;utm_campaign=Badge_Grade)
+[![GPv3 licensed](https://img.shields.io/badge/license-GPLv3.svg)](https://raw.githubusercontent.com/bmhm/webtrees-missingtombstones/master/LICENSE.txt) [![Coverage Status](https://coveralls.io/repos/github/bmhm/webtrees-missingtombstones/badge.svg?branch=master)](https://coveralls.io/github/bmhm/webtrees-missingtombstones?branch=master) [![Build Status](https://travis-ci.org/bmhm/webtrees-missingtombstones.svg?branch=master)](https://travis-ci.org/bmhm/webtrees-missingtombstones) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9c4d0742754545a3b7bde6d521897f9a)](https://www.codacy.com/app/bmarwell/webtrees-missingtombstones?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bmhm/webtrees-missingtombstones&amp;utm_campaign=Badge_Grade)
 
 ## Contents
 
