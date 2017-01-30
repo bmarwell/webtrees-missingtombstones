@@ -8,22 +8,28 @@ MKDIR=mkdir -p
 
 .PHONY: clean update vendor build/missingtombstones
 
+.PHONY: all
 all: src/missingtombstones/language/messages.pot update build/missingtombstones.tar.bz2
 
+.PHONY: clean
 clean:
 	rm -Rf build/* src/missingtombstones/language/messages.pot
 	rm -Rf build
 
+.PHONY: update
 update: src/missingtombstones/language/messages.pot $(MO_FILES)
 
+.PHONY: vendor
 vendor:
-	composer.phar self-update
-	composer.phar update
-	composer.phar dump-autoload --optimize
+	php composer.phar self-update
+	php composer.phar update
+	php composer.phar dump-autoload --optimize
 
+.PHONY: build/missingtombstones
 build/missingtombstones: src/missingtombstones/language/messages.pot update
 	$(MKDIR) build 
 	cp -R src/missingtombstones/ build/
+	cp module.php build/missingtombstones/
 
 build/missingtombstones.tar.bz2: build/missingtombstones
 	tar cvjf $@ $^
@@ -36,6 +42,5 @@ $(PO_FILES): src/missingtombstones/language/messages.pot
 
 %.mo: %.po
 	msgfmt --output=$@ $<
-
 
 # vim:noexpandtab

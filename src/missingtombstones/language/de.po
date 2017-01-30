@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webtrees-missingtombstones 1.0\n"
 "Report-Msgid-Bugs-To: bmarwell@gmail.com\n"
-"POT-Creation-Date: 2017-01-03 09:31+0100\n"
+"POT-Creation-Date: 2017-01-30 09:38+0100\n"
 "PO-Revision-Date: 2017-01-02 09:49+0100\n"
 "Last-Translator: Benjamin Marwell <bmarwell+blog@gmail.com>\n"
 "Language-Team: \n"
@@ -18,40 +18,40 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/missingtombstones/module.php:152
+#: module.php:152
 msgid "Control panel"
 msgstr ""
 
-#: src/missingtombstones/module.php:78
+#: module.php:78
 msgid "Creates a list about missing tombstones for individuals deceased recently."
 msgstr "Erstellt eine Liste von fehlenden Grabsteinfotos für Personen, die vor kurzem verstorben sind."
 
-#: src/missingtombstones/module.php:173
+#: module.php:173
 msgid "For Europe, a grave will last typically about 30 years, unless the family of the deceased pays for prolongation."
 msgstr "In Europa sind das typischerweise etwa 30 Jahre, solange die Familie nicht für eine Verlängerung zahlt."
 
-#: src/missingtombstones/module.php:71
+#: module.php:71
 msgid "Missing Tombstones"
 msgstr "Fehlende Grabsteine"
 
-#: src/missingtombstones/module.php:112
+#: module.php:112
 #, php-format
 msgid "Missing tombstones for the deceased of the last %s years"
 msgstr "Fehlende Grabsteine für die Verstorbenen der letzten %s Jahre"
 
-#: src/missingtombstones/module.php:153
+#: module.php:153
 msgid "Module administration"
 msgstr ""
 
-#: src/missingtombstones/module.php:172
+#: module.php:172
 msgid "On this page you can set per tree, how many years a tombstone will exist on a cemetery before it gets removed."
 msgstr "Auf dieser Seite kann pro Stammbaum gesetzt werden, wie viele Jahre lang ein Grabstein auf einem Friedhof existiert, ohne abgeräumt zu werden."
 
-#: src/missingtombstones/module.php:165
+#: module.php:165
 msgid "Preferences saved"
 msgstr "Einstellungen gespeichert"
 
-#: src/missingtombstones/module.php:190
+#: module.php:190
 msgid "save"
 msgstr "Speichern"
 
