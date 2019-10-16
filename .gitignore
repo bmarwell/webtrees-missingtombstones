@@ -19,3 +19,10 @@
 cov.xml
 .phpunit.result.cache
 /.phpunit.result.cache
+.vscode/
+data/cache/src
+data/cache/vendor
+data/cache/test
+data/cache/*.php
+data/cache/*.php
+data/cache/*

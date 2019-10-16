@@ -1,7 +1,7 @@
 {
   "autoload" : {
     "psr-4" : {
-      "bmarwell\\WebtreesModules\\MissingTombstones\\" : "."
+      "bmarwell\\WebtreesModules\\MissingTombstones\\" : "./src"
     }
   },
   "autoload-dev": {
@@ -23,7 +23,8 @@
     "fisharebest/webtrees": "2.0.0-beta4",
     "phpunit/phpunit": "^8.4",
     "league/flysystem-memory": "^1.0",
-    "aura/router": "^3.1"
+    "aura/router": "^3.1",
+    "codeception/aspect-mock": "^3.0"
   },
   "authors" : [{
     "name" : "Benjamin Marwell",
