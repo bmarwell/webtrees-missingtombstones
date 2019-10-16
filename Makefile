@@ -22,8 +22,8 @@ update: $(LANGUAGE_DIR)/messages.pot $(MO_FILES)
 .PHONY: vendor
 vendor:
 	php ./composer.phar self-update
-	php composer.phar update
-	php composer.phar dump-autoload --optimize
+	php ./composer.phar update
+	php ./composer.phar dump-autoload --optimize
 
 .PHONY: build/missingtombstones
 build/missingtombstones: $(LANGUAGE_DIR)/messages.pot update
