@@ -27,6 +27,7 @@ use Fisharebest\Webtrees\Module\ModuleListInterface;
 use Fisharebest\Webtrees\Module\ModuleListTrait;
 use Fisharebest\Webtrees\Services\LocalizationService;
 use Fisharebest\Webtrees\Tree;
+use Fisharebest\Webtrees\View;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -113,18 +114,6 @@ class MissingTombstonesModule extends AbstractModule implements ModuleListInterf
         return 'https://github.com/bmhm/webtrees-missingtombstones';
     }
 
-    /**
-     * Additional/updated translations.
-     *
-     * @param string $language
-     *
-     * @return string[]
-     */
-    public function customTranslations(string $language): array
-    {
-        return array('de');
-    }
-
     /* **************************************
      * from interface ModuleConfigInterface *
      * **************************************/
@@ -157,7 +146,7 @@ class MissingTombstonesModule extends AbstractModule implements ModuleListInterf
     {
         $this->layout = 'layouts/administration';
 
-        $missing_tombstone_urls = getListUrls();
+        $missing_tombstone_urls = $this->getListUrls();
 
         return $this->viewResponse($this->name() . '::admin', [
             'missing_tombstone_urls' => $missing_tombstone_urls,
@@ -170,7 +159,7 @@ class MissingTombstonesModule extends AbstractModule implements ModuleListInterf
     {
         $this->layout = 'layouts/administration';
 
-        $missing_tombstone_urls = getListUrls();
+        $missing_tombstone_urls = $this->getListUrls();
 
         // TODO: actually save!
         // $this->saveTreePreferences($tree);
