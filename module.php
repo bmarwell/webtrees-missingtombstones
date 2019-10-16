@@ -35,7 +35,7 @@ use Psr\Http\Message\ServerRequestInterface;
  * Class MissingTombstones
  * @package bmarwell\WebtreesModules\MissingTombstones
  */
-class MissingTombstonesModule extends AbstractModule implements ModuleListInterface, ModuleConfigInterface
+return new class extends AbstractModule implements ModuleListInterface, ModuleConfigInterface
 {
     // name() : string set by webtrees.
     use ModuleCustomTrait;
@@ -204,5 +204,3 @@ class MissingTombstonesModule extends AbstractModule implements ModuleListInterf
     }
 
 };
-
-return new MissingTombstonesModule();
