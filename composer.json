@@ -17,9 +17,13 @@
     "php" : ">=7.1.8"
   },
   "require-dev": {
+    "ext-pdo_sqlite": "*",
+    "ext-sqlite3": "*",
     "codacy/coverage": "dev-master",
     "fisharebest/webtrees": "2.0.0-beta4",
-    "phpunit/phpunit": "^8.4"
+    "phpunit/phpunit": "^8.4",
+    "league/flysystem-memory": "^1.0",
+    "aura/router": "^3.1"
   },
   "authors" : [{
     "name" : "Benjamin Marwell",

@@ -18,9 +18,11 @@ declare(strict_types=1);
 namespace bmarwell\WebtreesModules\MissingTombstones;
 
 use Exception;
+use Fisharebest\Webtrees\Date;
 use Fisharebest\Webtrees\Individual;
 use Fisharebest\Webtrees\Services\LocalizationService;
 use Fisharebest\Webtrees\Tree;
+use Illuminate\Support\Facades\DB;
 
 class TombstoneListService {
     /** @var LocalizationService */
@@ -56,7 +58,7 @@ class TombstoneListService {
 
         $myindilist = array();
         $sqlParameters = array();
-        $date = new Date($startyear);
+        $date = new Date("$startyear");
 
         // Dynamic SQL query, plus sqlParameters variables
         $sql = "SELECT DISTINCT
@@ -75,8 +77,10 @@ class TombstoneListService {
         $sqlParameters[] = $this->tree->id();
         $sqlParameters[] = $date->minimumJulianDay();
 
-        $rows = Database::prepare($sql)
-            ->execute($sqlParameters)->fetchAll();
+        $query = DB::table('individuals')
+            ->where('d_fact', '=', 'DEAT');
+
+        $rows = $query->get()->all();
 
         foreach ($rows as $row) {
             $person = Individual::getInstance($row->xref, $this->tree);

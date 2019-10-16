@@ -1,7 +1,7 @@
 <?php
-use PHPUnit\Framework\TestCase;
+
 use bmarwell\WebtreesModules\MissingTombstones\TombstoneListService;
-use Fisharebest\Webtrees\Individual;
+use PHPUnit\Framework\TestCase;
 
 
 class TombstoneListServiceTest extends TestCase {

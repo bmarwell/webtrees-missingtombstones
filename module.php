@@ -35,7 +35,7 @@ use Psr\Http\Message\ServerRequestInterface;
  * Class MissingTombstones
  * @package bmarwell\WebtreesModules\MissingTombstones
  */
-return new class extends AbstractModule implements ModuleListInterface, ModuleConfigInterface
+class MissingTombstonesModule extends AbstractModule implements ModuleListInterface, ModuleConfigInterface
 {
     // name() : string set by webtrees.
     use ModuleCustomTrait;
@@ -189,7 +189,16 @@ return new class extends AbstractModule implements ModuleListInterface, ModuleCo
         Auth::checkComponentAccess($this, ModuleListInterface::class, $tree, $user);
 
         // TODO: use this as default, also check attribute 'years'.
-        $years = $this->getPreference('mod_mt_years');
+        $years = null;
+        $attributes = $request->getAttributes();
+        $hasYearsAttribute = array_key_exists('years', $attributes);
+
+        if ($hasYearsAttribute) {
+            $years = $request->getAttribute('years', 30);
+        }
+        if (is_null($years)) {
+            $years = $this->getPreference('mod_mt_years', 30);
+        }
 
         // convert to new search format.
         $search = new TombstoneListService(app(LocalizationService::class), app(Tree::class));
@@ -204,3 +213,5 @@ return new class extends AbstractModule implements ModuleListInterface, ModuleCo
     }
 
 };
+
+return new MissingTombstonesModule();
