@@ -3,7 +3,7 @@ language: php
 php:
   - '7.2.8' # current requirement for webtrees, 7.2.23 was released 2019-09-26.
   - '7.3'
-  - '7.4' # 7.4.0RC3 released 2019-10-03
+  - '7.4snapshot' # 7.4.0RC3 released 2019-10-03
   - hhvm
   - nightly # does not have xdebug at the moment
 
