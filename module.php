@@ -17,7 +17,7 @@
 namespace bmarwell\WebtreesModules\MissingTombstones;
 
 use Fisharebest\Webtrees\Auth;
-use Fisharebest\Webtrees\Filter;
+use Fisharebest\Webtrees\Contracts\UserInterface;
 use Fisharebest\Webtrees\I18N;
 use Fisharebest\Webtrees\Module\AbstractModule;
 use Fisharebest\Webtrees\Module\ModuleConfigInterface;
@@ -25,7 +25,10 @@ use Fisharebest\Webtrees\Module\ModuleConfigTrait;
 use Fisharebest\Webtrees\Module\ModuleCustomTrait;
 use Fisharebest\Webtrees\Module\ModuleListInterface;
 use Fisharebest\Webtrees\Module\ModuleListTrait;
+use Fisharebest\Webtrees\Services\LocalizationService;
 use Fisharebest\Webtrees\Tree;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Class MissingTombstones
@@ -192,11 +195,10 @@ class MissingTombstonesModule extends AbstractModule implements ModuleListInterf
      * For more examples, also take a look at SiteMapModule.php.
      * @return ResponseInterface
      */
-    public function getListAction(ServerRequestInterface $request): ResponseInterface
+    public function getListAction(ServerRequestInterface $request, Tree $tree, UserInterface $user): ResponseInterface
     {
         Auth::checkComponentAccess($this, ModuleListInterface::class, $tree, $user);
 
-        $tree = $request->getAttribute('tree');
         // TODO: use this as default, also check attribute 'years'.
         $years = $this->getPreference('mod_mt_years');
 

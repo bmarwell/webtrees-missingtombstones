@@ -17,6 +17,11 @@ declare(strict_types=1);
 
 namespace bmarwell\WebtreesModules\MissingTombstones;
 
+use Exception;
+use Fisharebest\Webtrees\Individual;
+use Fisharebest\Webtrees\Services\LocalizationService;
+use Fisharebest\Webtrees\Tree;
+
 class TombstoneListService {
     /** @var LocalizationService */
     private $localization_service;
@@ -37,24 +42,24 @@ class TombstoneListService {
     }
 
     /**
-   * Perform the search
-   *
-   * @param $numYearsPast
-   *    The number of years where headstones are expected to be removed.
-   *    Defaults to 30 years.
-   *
-   * @return Individual[]
-   */
-  public function individualsWithTombstone($numYearsPast = 30) : array
-  {
-    $startyear = date("Y") - $numYearsPast;
+     * Perform the search
+     *
+     * @param $numYearsPast
+     *    The number of years where headstones are expected to be removed.
+     *    Defaults to 30 years.
+     *
+     * @return Individual[]
+     */
+    public function individualsWithTombstone($numYearsPast = 30) : array
+    {
+        $startyear = date("Y") - $numYearsPast;
 
-    $myindilist = array();
-    $sqlParameters = array();
-    $date = new Date($startyear);
+        $myindilist = array();
+        $sqlParameters = array();
+        $date = new Date($startyear);
 
-    // Dynamic SQL query, plus sqlParameters variables
-    $sql = "SELECT DISTINCT
+        // Dynamic SQL query, plus sqlParameters variables
+        $sql = "SELECT DISTINCT
 					ind.i_id AS xref,
 					ind.i_file AS gedcom_id,
 					ind.i_gedcom AS gedcom
@@ -67,67 +72,67 @@ class TombstoneListService {
 					AND i_d.d_fact='DEAT'
 					AND i_d.d_type='@#DGREGORIAN@'
 					AND i_d.d_julianday1>=?";
-    $sqlParameters[] = $tree->id();
-    $sqlParameters[] = $date->minimumJulianDay();
+        $sqlParameters[] = $this->tree->id();
+        $sqlParameters[] = $date->minimumJulianDay();
 
-    $rows = Database::prepare($sql)
-      ->execute($sqlParameters)->fetchAll();
+        $rows = Database::prepare($sql)
+            ->execute($sqlParameters)->fetchAll();
 
-    foreach ($rows as $row) {
-      $person = Individual::getInstance($row->xref, $tree);
+        foreach ($rows as $row) {
+            $person = Individual::getInstance($row->xref, $this->tree);
 
-      if (!static::personHasTombstone($person)) {
-        // same as array_push($myindilist, $person);
-        $myindilist[] = $person;
-      }
-      // next result
+            if (!static::personHasTombstone($person)) {
+                // same as array_push($myindilist, $person);
+                $myindilist[] = $person;
+            }
+            // next result
+        }
+
+        return $myindilist;
     }
 
-    return $myindilist;
-  }
+    /**
+     * @param Individual $person
+     * @return Media[]
+     * @throws Exception
+     */
+    private static function findMedia($person) {
+        global $WT_TREE;
 
-  /**
-   * @param Individual $person
-   * @return Media[]
-   * @throws \Exception
-   */
-  private static function findMedia($person) {
-    global $WT_TREE;
+        $media = array();
+        $matches = array();
 
-    $media = array();
-    $matches = array();
+        preg_match_all('/\n(\d) OBJE @(' . WT_REGEX_XREF . ')@/', $person->getGedcom(), $matches, PREG_SET_ORDER);
+        foreach ($matches as $match) {
+            $mediafound = Media::getInstance($match[2], $WT_TREE);
 
-    preg_match_all('/\n(\d) OBJE @(' . WT_REGEX_XREF . ')@/', $person->getGedcom(), $matches, PREG_SET_ORDER);
-    foreach ($matches as $match) {
-      $mediafound = Media::getInstance($match[2], $WT_TREE);
+            if (null === $media) {
+                continue;
+            }
 
-      if (null === $media) {
-        continue;
-      }
+            $media[] = $mediafound;
+        }
 
-      $media[] = $mediafound;
+        return $media;
     }
 
-    return $media;
-  }
+    /**
+     * @param Individual $person
+     * @return bool
+     */
+    public static function personHasTombstone($person) {
+        if ($person === NULL) {
+            return false;
+        }
 
-  /**
-   * @param Individual $person
-   * @return bool
-   */
-  public static function personHasTombstone($person) {
-    if ($person === NULL) {
-      return false;
+        $linkedMedia = static::findMedia($person);
+
+        foreach ($linkedMedia as $media) {
+            if ($media->getMediaType() === "tombstone") {
+                return true;
+            }
+        }
+
+        return false;
     }
-
-    $linkedMedia = static::findMedia($person);
-
-    foreach ($linkedMedia as $media) {
-      if ($media->getMediaType() === "tombstone") {
-        return true;
-      }
-    }
-
-    return false;
-  }
 }
