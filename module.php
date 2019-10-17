@@ -14,8 +14,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-// namespace bmarwell\WebtreesModules\MissingTombstones;
+// do not use namespace here.
+// namespace bmhm\WebtreesModules\MissingTombstones;
 
-use bmarwell\WebtreesModules\MissingTombstones\MissingTombstonesModule;
+use bmhm\WebtreesModules\MissingTombstones\MissingTombstonesModule;
 
 return new MissingTombstonesModule();

@@ -1,6 +1,6 @@
 <?php
 
-use bmarwell\WebtreesModules\MissingTombstones\TombstoneListService;
+use bmhm\WebtreesModules\MissingTombstones\TombstoneListService;
 use PHPUnit\Framework\TestCase;
 
 

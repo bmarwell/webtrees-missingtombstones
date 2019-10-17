@@ -4,15 +4,15 @@
 
 ## Contents
 
-* [Introduction](#introduction)
-  * [Installation](#installation)
-  * [Verification](#verification)
-* [Usage](#usage)
-  * [Settings](#configuration)
-* [Development](#development)
-  * [Translation](#translation)
-* [Links](#links)
-* [License](#license)
+ * [Introduction](#introduction)
+   * [Installation](#installation)
+   * [Verification](#verification)
+ * [Usage](#usage)
+   * [Settings](#configuration)
+ * [Development](#development)
+   * [Translation](#translation)
+ * [Links](#links)
+ * [License](#license)
 
 ## Introduction
 
@@ -71,7 +71,6 @@ You can generate a `messages.pot`-file using `make update` from the command line
 * Canadian Headstones: [Find a Grave in Canada](http://canadianheadstones.com/findagrave.htm).
 * International, but mostly US-American: [Find a Grave](http://www.findagrave.com/).
 * International Directory: [Gravestone Photographic Resource](http://www.gravestonephotos.com/).
-
 
 ## License
 

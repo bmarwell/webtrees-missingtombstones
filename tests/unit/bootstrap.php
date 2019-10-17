@@ -1,6 +1,8 @@
 <?php
 
-include __DIR__ . '/../../vendor/autoload.php';
+declare (strict_types = 1);
+
+namespace bmhm\WebtreesModules\MissingTombstones;
 
 $kernel = \AspectMock\Kernel::getInstance();
 $kernel->init([

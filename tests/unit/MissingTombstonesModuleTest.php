@@ -2,7 +2,7 @@
 
 declare (strict_types = 1);
 
-namespace bmarwell\WebtreesModules\MissingTombstones;
+namespace bmhm\WebtreesModules\MissingTombstones;
 
 use AspectMock\Test as test;
 use PHPUnit\Framework\TestCase;

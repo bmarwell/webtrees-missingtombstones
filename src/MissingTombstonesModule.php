@@ -14,7 +14,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace bmarwell\WebtreesModules\MissingTombstones;
+namespace bmhm\WebtreesModules\MissingTombstones;
 
 use Fisharebest\Webtrees\Auth;
 use Fisharebest\Webtrees\Contracts\UserInterface;
@@ -33,7 +33,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Class MissingTombstones
- * @package bmarwell\WebtreesModules\MissingTombstones
+ * @package bmhm\WebtreesModules\MissingTombstones
  */
 class MissingTombstonesModule extends AbstractModule implements ModuleListInterface, ModuleConfigInterface
 {
@@ -207,7 +207,7 @@ class MissingTombstonesModule extends AbstractModule implements ModuleListInterf
         if ($hasYearsAttribute) {
             $years = $request->getAttribute('years', 30);
         }
-        if (is_null($years)) {
+        if ($years === null) {
             $years = $this->getPreference('mod_mt_years', 30);
         }
 

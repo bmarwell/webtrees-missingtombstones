@@ -15,7 +15,7 @@
  */
 declare(strict_types=1);
 
-namespace bmarwell\WebtreesModules\MissingTombstones;
+namespace bmhm\WebtreesModules\MissingTombstones;
 
 use Exception;
 use Fisharebest\Webtrees\Date;
@@ -25,10 +25,10 @@ use Fisharebest\Webtrees\Tree;
 use Illuminate\Database\Capsule\Manager as DB;
 
 class TombstoneListService {
-    /** @var LocalizationService */
+    /** @var LocalizationService $localization_service */
     private $localization_service;
 
-    /** @var Tree */
+    /** @var Tree $tree */
     private $tree;
 
     /**
@@ -55,40 +55,25 @@ class TombstoneListService {
     public function individualsWithTombstone($numYearsPast = 30) : array
     {
         $startyear = date("Y") - $numYearsPast;
-
-        $myindilist = array();
-        $sqlParameters = array();
         $date = new Date("$startyear");
-
-        // Dynamic SQL query, plus sqlParameters variables
-        $sql = "SELECT DISTINCT
-					ind.i_id AS xref,
-					ind.i_file AS gedcom_id,
-					ind.i_gedcom AS gedcom
-				FROM
-					`##individuals` ind
-				JOIN
-					`##dates`  i_d ON (i_d.d_file=ind.i_file AND i_d.d_gid=ind.i_id)
-				WHERE
-					ind.i_file=?
-					AND i_d.d_fact='DEAT'
-					AND i_d.d_type='@#DGREGORIAN@'
-					AND i_d.d_julianday1>=?";
-        $sqlParameters[] = $this->tree->id();
-        $sqlParameters[] = $date->minimumJulianDay();
 
         $query = DB::table('individuals')
             ->where('d_fact', '=', 'DEAT');
+            // TODO: And where (julian) date > $date
 
         $rows = $query->get()->all();
 
+        // check results if already having a tombstone media.
+        $myindilist = array();
         foreach ($rows as $row) {
             $person = Individual::getInstance($row->xref, $this->tree);
 
-            if (!static::personHasTombstone($person)) {
+            if (static::personHasTombstone($person)) {
                 // same as array_push($myindilist, $person);
-                $myindilist[] = $person;
+                continue;
             }
+
+            $myindilist[] = $person;
             // next result
         }
 

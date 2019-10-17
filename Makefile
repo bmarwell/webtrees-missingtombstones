@@ -35,7 +35,7 @@ build/missingtombstones.tar.bz2: build/missingtombstones
 	tar cvjf $@ $^
 
 $(LANGUAGE_DIR)/messages.pot: $(LANGUAGE_SRC)
-	echo $^ | xargs xgettext --package-name="webtrees-missingtombstones" --package-version=1.0 --msgid-bugs-address=bmarwell@gmail.com --no-wrap --language=PHP --add-comments=I18N --from-code=utf-8 --keyword=translate:1 --keyword=translateContext:1c,2 --keyword=plural:1,2 --output=$@
+	echo $^ | xargs xgettext --package-name="webtrees-missingtombstones" --package-version=1.0 --msgid-bugs-address=bmarwell+webtrees@gmail.com --no-wrap --language=PHP --add-comments=I18N --from-code=utf-8 --keyword=translate:1 --keyword=translateContext:1c,2 --keyword=plural:1,2 --output=$@
 
 $(PO_FILES): $(LANGUAGE_DIR)/messages.pot
 	msgmerge --no-wrap --sort-output --no-fuzzy-matching --output=$@ $@ $<
