@@ -15,6 +15,10 @@ all: $(LANGUAGE_DIR)/messages.pot update build/missingtombstones.tar.bz2
 clean:
 	rm -Rf build/* $(LANGUAGE_DIR)/messages.pot
 	rm -Rf build
+	rm -Rf data/cache/*.php
+	rm -Rf data/cache/_transformation.cache
+	rm -Rf vendor
+	find data/cache/* -type d -exec rm -r '{}' +
 
 .PHONY: update
 update: $(LANGUAGE_DIR)/messages.pot $(MO_FILES)

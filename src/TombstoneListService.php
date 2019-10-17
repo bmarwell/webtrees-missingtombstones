@@ -13,18 +13,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace bmhm\WebtreesModules\MissingTombstones;
 
 use Exception;
 use Fisharebest\Webtrees\Date;
 use Fisharebest\Webtrees\Individual;
+use Fisharebest\Webtrees\Media;
 use Fisharebest\Webtrees\Services\LocalizationService;
 use Fisharebest\Webtrees\Tree;
 use Illuminate\Database\Capsule\Manager as DB;
+use Illuminate\Database\Query\JoinClause;
 
-class TombstoneListService {
+class TombstoneListService
+{
     /** @var LocalizationService $localization_service */
     private $localization_service;
 
@@ -40,11 +43,11 @@ class TombstoneListService {
     public function __construct(LocalizationService $localization_service, Tree $tree)
     {
         $this->localization_service = $localization_service;
-        $this->tree                 = $tree;
+        $this->tree = $tree;
     }
 
     /**
-     * Perform the search
+     * Search individuals without a tombstone.
      *
      * @param $numYearsPast
      *    The number of years where headstones are expected to be removed.
@@ -52,21 +55,30 @@ class TombstoneListService {
      *
      * @return Individual[]
      */
-    public function individualsWithTombstone($numYearsPast = 30) : array
+    public function individualsWithoutTombstone($numYearsPast = 30): array
     {
         $startyear = date("Y") - $numYearsPast;
-        $date = new Date("$startyear");
+        $month = date("M");
+        $day = date("d");
+        $date = new Date("$day $month $startyear");
 
         $query = DB::table('individuals')
-            ->where('d_fact', '=', 'DEAT');
-            // TODO: And where (julian) date > $date
+            ->join('dates', static function (JoinClause $join): void {
+                $join
+                    ->on('d_gid', '=', 'i_id')
+                    ->on('d_file', '=', 'i_file');
+            })
+            ->where('d_fact', '=', 'DEAT')
+            ->where('i_file', '=', $this->tree->id())
+            ->where('d_julianday1', '>', $date->minimumJulianDay());
+        // TODO: And where (julian) date > $date
 
         $rows = $query->get()->all();
 
         // check results if already having a tombstone media.
         $myindilist = array();
         foreach ($rows as $row) {
-            $person = Individual::getInstance($row->xref, $this->tree);
+            $person = Individual::getInstance($row->i_id, $this->tree);
 
             if (static::personHasTombstone($person)) {
                 // same as array_push($myindilist, $person);
@@ -85,17 +97,18 @@ class TombstoneListService {
      * @return Media[]
      * @throws Exception
      */
-    private static function findMedia($person) {
+    private static function findMedia($person)
+    {
         global $WT_TREE;
 
         $media = array();
         $matches = array();
 
-        preg_match_all('/\n(\d) OBJE @(' . WT_REGEX_XREF . ')@/', $person->getGedcom(), $matches, PREG_SET_ORDER);
+        preg_match_all('/\n(\d) OBJE @(' . WT_REGEX_XREF . ')@/', $person->gedcom(), $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
-            $mediafound = Media::getInstance($match[2], $WT_TREE);
+            $mediafound = Media::getInstance($match[2], $person->tree());
 
-            if (null === $media) {
+            if (null === $mediafound) {
                 continue;
             }
 
@@ -109,8 +122,9 @@ class TombstoneListService {
      * @param Individual $person
      * @return bool
      */
-    public static function personHasTombstone($person) {
-        if ($person === NULL) {
+    public static function personHasTombstone($person)
+    {
+        if ($person === null) {
             return false;
         }
 

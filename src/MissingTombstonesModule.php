@@ -212,7 +212,7 @@ class MissingTombstonesModule extends AbstractModule implements ModuleListInterf
         }
 
         // convert to new search format.
-        $this->tombstoneListService->individualsWithTombstone($years);
+        $this->tombstoneListService->individualsWithoutTombstone($years);
 
         $individuals = array();
 

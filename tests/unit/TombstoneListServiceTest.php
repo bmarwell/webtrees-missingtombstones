@@ -13,13 +13,18 @@ class TombstoneListServiceTest extends AbstractDBTestCase
     /** @var TombstoneListService $service */
     private $service;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function setUp(): void
     {
         parent::setUp();
         $this->service = new TombstoneListService($this->getLocalizationService(), $this->getTree());
     }
 
-    public function tearDown() : void
+    public function tearDown(): void
     {
         parent::tearDown();
     }
@@ -27,7 +32,7 @@ class TombstoneListServiceTest extends AbstractDBTestCase
     public function testServiceCanReadPersons(): void
     {
         /** @var Individual[] $individuals */
-        $individuals = $this->service->individualsWithTombstone(1);
+        $individuals = $this->service->individualsWithoutTombstone(1);
         $query_log = DB::getQueryLog();
         $last_query = array_pop($query_log);
 
@@ -39,7 +44,9 @@ class TombstoneListServiceTest extends AbstractDBTestCase
 
     public function testServiceCanReadPersons_nonEmpty(): void
     {
-
+        // given death year
+        $DEATH_YEAR = date("Y") - 5;
+        // given this record with the death year
         $gedrec = <<<EOT
 0 @I499@ INDI
 1 NAME Jane /Doe/
@@ -50,7 +57,7 @@ class TombstoneListServiceTest extends AbstractDBTestCase
 1 BIRT
 2 DATE 18 NOV 1888
 1 DEAT
-2 DATE 16 APR 1976
+2 DATE 16 APR $DEATH_YEAR
 1 FAMS @F187@
 1 FAMC @F189@
 1 CHAN
@@ -58,18 +65,12 @@ class TombstoneListServiceTest extends AbstractDBTestCase
 3 TIME 16:31:48
 1 OBJE @M170@
 EOT;
-        F::importRecord($gedrec, $this->getTree(), $update = true);
-
-        /** @var Query $last_query */
-        $last_query = $this->getLastQuery();
-        print_r($last_query);
+        F::importRecord($gedrec, $this->getTree(), $update = false);
 
         /** @var Individual[] $individuals */
-        $individuals = $this->service->individualsWithTombstone(1);
-        $query_log = DB::getQueryLog();
-        $last_query = array_pop($query_log);
-
-        print_r($last_query);
+        $individuals = $this->service->individualsWithoutTombstone();
+        /** @var Query $last_query */
+        $last_query = $this->getLastQuery();
 
         $this->assertNotEmpty($individuals);
     }
