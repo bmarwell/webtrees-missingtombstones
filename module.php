@@ -19,4 +19,22 @@
 
 use bmhm\WebtreesModules\MissingTombstones\MissingTombstonesModule;
 
+spl_autoload_register(function ($class) {
+  $cwd = dirname(__FILE__);
+  $file = str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
+  $localFile = $cwd . '/' . str_replace('bmhm/WebtreesModules/MissingTombstones', 'src', $file);
+
+  if (file_exists($localFile)) {
+      require $localFile;
+      return true;
+  }
+
+  if (file_exists($file)) {
+      require $file;
+      return true;
+  }
+
+  return false;
+});
+
 return new MissingTombstonesModule();
