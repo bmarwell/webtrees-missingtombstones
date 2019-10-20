@@ -78,7 +78,12 @@ class TombstoneListService
         // check results if already having a tombstone media.
         $myindilist = array();
         foreach ($rows as $row) {
-            $person = Individual::getInstance($row->i_id, $this->tree);
+            try {
+                $person = Individual::getInstance($row->i_id, $this->tree);
+            } catch (Exception $ex) {
+                // TODO: log exception.
+                continue;
+            }
 
             if (static::personHasTombstone($person)) {
                 // same as array_push($myindilist, $person);
@@ -95,7 +100,6 @@ class TombstoneListService
     /**
      * @param Individual $person
      * @return Media[]
-     * @throws Exception
      */
     private static function findMedia($person)
     {
@@ -106,7 +110,12 @@ class TombstoneListService
 
         preg_match_all('/\n(\d) OBJE @(' . WT_REGEX_XREF . ')@/', $person->gedcom(), $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
-            $mediafound = Media::getInstance($match[2], $person->tree());
+            try {
+                $mediafound = Media::getInstance($match[2], $person->tree());
+            } catch (Exception $ex) {
+                // TODO: log exception.
+                continue;
+            }
 
             if (null === $mediafound) {
                 continue;

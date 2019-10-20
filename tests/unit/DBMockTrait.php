@@ -7,7 +7,7 @@ namespace bmhm\WebtreesModules\MissingTombstones;
 use Fisharebest\Webtrees\Services\MigrationService;
 use Fisharebest\Webtrees\Webtrees;
 use Illuminate\Database\Capsule\Manager as DB;
-use \RuntimeException;
+use RuntimeException;
 
 trait DBMockTrait
 {
@@ -27,7 +27,7 @@ trait DBMockTrait
         $migration_service = new MigrationService();
         $migration_service->updateSchema('\Fisharebest\Webtrees\Schema', 'WT_SCHEMA_VERSION', Webtrees::SCHEMA_VERSION);
         if ($this->getLastQuery() === null) {
-            throw new \RuntimeException("Schema upgrade did not run.");
+            throw new RuntimeException("Schema upgrade did not run.");
         }
         // Create config data
         $migration_service->seedDatabase();

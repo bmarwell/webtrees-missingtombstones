@@ -6,9 +6,9 @@ namespace bmhm\WebtreesModules\MissingTombstones;
 
 use AspectMock\Test as test;
 use Fisharebest\Webtrees\Services\LocalizationService;
+use Fisharebest\Webtrees\Services\TreeService;
 use Fisharebest\Webtrees\Site;
 use Fisharebest\Webtrees\Tree;
-use Illuminate\Database\Capsule\Manager as DB;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractDBTestCase extends TestCase
@@ -34,7 +34,7 @@ abstract class AbstractDBTestCase extends TestCase
 
         $this->localizationService = $this->createMock(LocalizationService::class);
 
-        $tree = Tree::create('name', 'title'); //new Tree(1, 'name', 'title');
+        $tree = (new TreeService())->create('name', 'title'); //new Tree(1, 'name', 'title');
         $this->trees[$tree->id()] = $tree;
     }
 

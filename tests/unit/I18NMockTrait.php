@@ -5,13 +5,13 @@ declare (strict_types = 1);
 namespace bmhm\WebtreesModules\MissingTombstones;
 
 use AspectMock\Test as test;
-use Fisharebest\Webtrees\Webtrees;
+use Fisharebest\Webtrees\I18N;
 
 trait I18NMockTrait
 {
     protected function initI18N(): void
     {
-        $i18nMock = test::double(\Fisharebest\Webtrees\I18N::class,
+        $i18nMock = test::double(I18N::class,
             [
                 'init' => 'en_US',
                 'translate' => function ($in) {return $in;},

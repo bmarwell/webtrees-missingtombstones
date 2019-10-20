@@ -5,19 +5,19 @@ declare (strict_types = 1);
 namespace bmhm\WebtreesModules\MissingTombstones;
 
 use AspectMock\Test as test;
+use Fisharebest\Webtrees\I18N;
+use Fisharebest\Webtrees\Tree;
+use Fisharebest\Webtrees\User;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use \Fisharebest\Webtrees\I18N;
-use \Fisharebest\Webtrees\Tree;
-use \Fisharebest\Webtrees\User;
-use \Fisharebest\Webtrees\Module\ModuleThemeInterface;
-
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class MissingTombstonesModuleTest extends TestCase
 {
 
     /**
-     * @var Tree|\PHPUnit\Framework\MockObject\MockObject
+     * @var Tree|MockObject
      */
     private $tree;
 
@@ -66,7 +66,7 @@ class MissingTombstonesModuleTest extends TestCase
 
     public function testLoadSearch(): void
     {
-        $request = $this->createMock(\Psr\Http\Message\ServerRequestInterface::class);
+        $request = $this->createMock(ServerRequestInterface::class);
         $request->method('getAttributes')
             ->willReturn(array(
                 'years' => 30,

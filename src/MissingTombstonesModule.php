@@ -22,6 +22,7 @@ use Fisharebest\Webtrees\I18N;
 use Fisharebest\Webtrees\Module\AbstractModule;
 use Fisharebest\Webtrees\Module\ModuleConfigInterface;
 use Fisharebest\Webtrees\Module\ModuleConfigTrait;
+use Fisharebest\Webtrees\Module\ModuleCustomInterface;
 use Fisharebest\Webtrees\Module\ModuleCustomTrait;
 use Fisharebest\Webtrees\Module\ModuleListInterface;
 use Fisharebest\Webtrees\Module\ModuleListTrait;
@@ -35,7 +36,7 @@ use Psr\Http\Message\ServerRequestInterface;
  * Class MissingTombstones
  * @package bmhm\WebtreesModules\MissingTombstones
  */
-class MissingTombstonesModule extends AbstractModule implements ModuleListInterface, ModuleConfigInterface
+class MissingTombstonesModule extends AbstractModule implements ModuleCustomInterface, ModuleListInterface, ModuleConfigInterface
 {
     /** @var TombstoneListService */
     private $tombstoneListService;
@@ -151,6 +152,7 @@ class MissingTombstonesModule extends AbstractModule implements ModuleListInterf
      * Access the admin page using HTTP GET.
      *
      * For more examples, also take a look at SiteMapModule.php.
+     * @param ServerRequestInterface $request
      * @return ResponseInterface
      */
     public function getAdminAction(ServerRequestInterface $request): ResponseInterface
@@ -193,6 +195,9 @@ class MissingTombstonesModule extends AbstractModule implements ModuleListInterf
      * Access the missing tombstones page using HTTP GET.
      *
      * For more examples, also take a look at SiteMapModule.php.
+     * @param ServerRequestInterface $request
+     * @param Tree $tree
+     * @param UserInterface $user
      * @return ResponseInterface
      */
     public function getListAction(ServerRequestInterface $request, Tree $tree, UserInterface $user): ResponseInterface

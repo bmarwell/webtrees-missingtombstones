@@ -12,7 +12,7 @@ trait AuthMockTrait
 
     protected function initAuth(): void
     {
-        $authMock = test::double(\Fisharebest\Webtrees\Auth::class, [
+        $authMock = test::double(Auth::class, [
             'checkComponentAccess' => null,
             'accessLevel' => Auth::PRIV_NONE,
             'user' => null,

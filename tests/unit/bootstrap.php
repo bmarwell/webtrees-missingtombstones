@@ -4,7 +4,9 @@ declare (strict_types = 1);
 
 namespace bmhm\WebtreesModules\MissingTombstones;
 
-$kernel = \AspectMock\Kernel::getInstance();
+use AspectMock\Kernel;
+
+$kernel = Kernel::getInstance();
 $kernel->init([
     'appDir' => __DIR__ . '/../../vendor/fisharebest/webtrees/app',
     'debug' => true,
