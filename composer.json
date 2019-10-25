@@ -18,7 +18,7 @@
   },
   "require-dev": {
     "codacy/coverage": "dev-master",
-    "fisharebest/webtrees": "dev-master",
+    "fisharebest/webtrees": "2.0.0-beta4",
     "phpunit/phpunit": "^8.4",
     "codeception/aspect-mock": "^3.0"
   },

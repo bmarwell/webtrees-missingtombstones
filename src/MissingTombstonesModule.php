@@ -65,10 +65,6 @@ class MissingTombstonesModule extends AbstractModule implements ModuleCustomInte
     {
         // Register a namespace for our views.
         View::registerNamespace($this->name(), $this->resourcesFolder() . 'views/');
-
-        if ($this->tombstoneListService === null) {
-          $this->tombstoneListService = new TombstoneListService(app(LocalizationService::class), app(Tree::class));
-        }
     }
 
     // overrides ModuleInterface::title and AbstractModule::title.
