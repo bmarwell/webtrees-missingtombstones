@@ -26,7 +26,6 @@ use Fisharebest\Webtrees\Module\ModuleCustomInterface;
 use Fisharebest\Webtrees\Module\ModuleCustomTrait;
 use Fisharebest\Webtrees\Module\ModuleListInterface;
 use Fisharebest\Webtrees\Module\ModuleListTrait;
-use Fisharebest\Webtrees\Services\LocalizationService;
 use Fisharebest\Webtrees\Tree;
 use Fisharebest\Webtrees\View;
 use Psr\Http\Message\ResponseInterface;
@@ -196,8 +195,10 @@ class MissingTombstonesModule extends AbstractModule implements ModuleCustomInte
      * @param UserInterface $user
      * @return ResponseInterface
      */
-    public function getListAction(ServerRequestInterface $request, Tree $tree, UserInterface $user): ResponseInterface
+    public function getListAction(ServerRequestInterface $request): ResponseInterface
     {
+        $tree = $request->getAttribute("tree");
+        $user = $request->getAttribute("user");
         Auth::checkComponentAccess($this, ModuleListInterface::class, $tree, $user);
 
         // TODO: use this as default, also check attribute 'years'.
