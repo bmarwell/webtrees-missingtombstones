@@ -26,6 +26,7 @@ use Fisharebest\Webtrees\Module\ModuleCustomInterface;
 use Fisharebest\Webtrees\Module\ModuleCustomTrait;
 use Fisharebest\Webtrees\Module\ModuleListInterface;
 use Fisharebest\Webtrees\Module\ModuleListTrait;
+use Fisharebest\Webtrees\Services\LocalizationService;
 use Fisharebest\Webtrees\Tree;
 use Fisharebest\Webtrees\View;
 use Psr\Http\Message\ResponseInterface;
@@ -37,15 +38,8 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class MissingTombstonesModule extends AbstractModule implements ModuleCustomInterface, ModuleListInterface, ModuleConfigInterface
 {
-    /** @var TombstoneListService */
-    private $tombstoneListService;
-
     // name() : string set by webtrees.
     use ModuleCustomTrait;
-
-    public function __construct($tombstoneListService = null) {
-      $this->tombstoneListService = $tombstoneListService;
-    }
 
     /**
      * Where does this module store its resources
@@ -214,7 +208,8 @@ class MissingTombstonesModule extends AbstractModule implements ModuleCustomInte
         }
 
         // convert to new search format.
-        $this->tombstoneListService->individualsWithoutTombstone($years);
+        $tombstoneListService = new TombstoneListService(app(LocalizationService::class), $tree);
+        $tombstoneListService->individualsWithoutTombstone($years);
 
         $individuals = array();
 
