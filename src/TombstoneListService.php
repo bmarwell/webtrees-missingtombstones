@@ -19,6 +19,7 @@ namespace bmhm\WebtreesModules\MissingTombstones;
 
 use Exception;
 use Fisharebest\Webtrees\Date;
+use Fisharebest\Webtrees\Gedcom;
 use Fisharebest\Webtrees\Individual;
 use Fisharebest\Webtrees\Media;
 use Fisharebest\Webtrees\Services\LocalizationService;
@@ -108,7 +109,7 @@ class TombstoneListService
         $media = array();
         $matches = array();
 
-        preg_match_all('/\n(\d) OBJE @(' . WT_REGEX_XREF . ')@/', $person->gedcom(), $matches, PREG_SET_ORDER);
+        preg_match_all('/\n(\d) OBJE @(' . Gedcom::REGEX_XREF . ')@/', $person->gedcom(), $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
             try {
                 $mediafound = Media::getInstance($match[2], $person->tree());
