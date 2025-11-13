@@ -14,13 +14,11 @@
   "description" : "Creates a report about missing tombstones",
   "license" : "Apache-2.0 OR EUPL-1.2",
   "require" : {
-    "php" : ">=7.1.8"
+    "php" : "^8.3"
   },
   "require-dev": {
-    "codacy/coverage": "dev-master",
-    "fisharebest/webtrees": "2.0.0-beta4",
-    "phpunit/phpunit": "^8.4",
-    "codeception/aspect-mock": "^3.0"
+    "fisharebest/webtrees": "^2.2.4",
+    "phpunit/phpunit": "^9.5"
   },
   "authors" : [{
     "name" : "Benjamin Marwell",

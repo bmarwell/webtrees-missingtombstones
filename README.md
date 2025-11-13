@@ -16,10 +16,15 @@
 
 ## Introduction
 
-This module for webtrees 1.7.x  will create a list of persons, deceased in the past 30 years,
+This module for webtrees 2.2+ will create a list of persons, deceased in the past 30 years,
 who do not have any media of `type = tombstone` attached. This is useful, if you need to add data which can be found
 on tombstones, gravestones, headstones (like birth year, year of death, maiden name). Headstones are also a historical and
 [cultural property](https://en.wikipedia.org/wiki/Cultural_property), which should be preserved.
+
+### Requirements
+
+- PHP 8.3 or higher
+- webtrees 2.2 or higher
 
 ### Installation
 
