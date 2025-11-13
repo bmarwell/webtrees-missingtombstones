@@ -30,17 +30,12 @@ use Illuminate\Database\Query\JoinClause;
 
 class TombstoneListService
 {
-    /** @var LocalizationService $localization_service */
-    private $localization_service;
+    private LocalizationService $localization_service;
 
-    /** @var Tree $tree */
-    private $tree;
+    private Tree $tree;
 
     /**
      * IndividualListService constructor.
-     *
-     * @param LocalizationService $localization_service
-     * @param Tree                $tree
      */
     public function __construct(LocalizationService $localization_service, Tree $tree)
     {
@@ -51,13 +46,12 @@ class TombstoneListService
     /**
      * Search individuals without a tombstone.
      *
-     * @param $numYearsPast
-     *    The number of years where headstones are expected to be removed.
-     *    Defaults to 30 years.
+     * @param int $numYearsPast The number of years where headstones are expected to be removed.
+     *                          Defaults to 30 years.
      *
      * @return Individual[]
      */
-    public function individualsWithoutTombstone($numYearsPast = 30): array
+    public function individualsWithoutTombstone(int $numYearsPast = 30): array
     {
         $startyear = date("Y") - $numYearsPast;
         $month = date("M");
@@ -78,7 +72,7 @@ class TombstoneListService
         $rows = $query->get()->all();
 
         // check results if already having a tombstone media.
-        $myindilist = array();
+        $myindilist = [];
         foreach ($rows as $row) {
             try {
                 $person = Registry::individualFactory()->make($row->i_id, $this->tree);
@@ -100,15 +94,17 @@ class TombstoneListService
     }
 
     /**
-     * @param Individual $person
+     * @param Individual|null $person
      * @return Media[]
      */
-    private static function findMedia($person)
+    private static function findMedia(?Individual $person): array
     {
-        global $WT_TREE;
+        if ($person === null) {
+            return [];
+        }
 
-        $media = array();
-        $matches = array();
+        $media = [];
+        $matches = [];
 
         preg_match_all('/\n(\d) OBJE @(' . Gedcom::REGEX_XREF . ')@/', $person->gedcom(), $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
@@ -130,10 +126,12 @@ class TombstoneListService
     }
 
     /**
-     * @param Individual $person
+     * Check if a person has a tombstone media attached.
+     *
+     * @param Individual|null $person
      * @return bool
      */
-    public static function personHasTombstone($person)
+    public static function personHasTombstone(?Individual $person): bool
     {
         if ($person === null) {
             return false;
