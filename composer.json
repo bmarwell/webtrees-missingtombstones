@@ -12,7 +12,7 @@
   "name" : "bmhm/webtrees-missingtombstones",
   "type" : "library",
   "description" : "Creates a report about missing tombstones",
-  "license" : "GPLv3",
+  "license" : "Apache-2.0 OR EUPL-1.2",
   "require" : {
     "php" : ">=7.1.8"
   },

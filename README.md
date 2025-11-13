@@ -1,6 +1,6 @@
 # Missing tombstones module for webtrees
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0) [![Build Status](https://travis-ci.org/bmhm/webtrees-missingtombstones.svg?branch=wt2.0-next)](https://travis-ci.org/bmhm/webtrees-missingtombstones) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9c4d0742754545a3b7bde6d521897f9a)](https://www.codacy.com/manual/bmarwell/webtrees-missingtombstones?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bmhm/webtrees-missingtombstones&amp;utm_campaign=Badge_Grade) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/9c4d0742754545a3b7bde6d521897f9a)](https://www.codacy.com/manual/bmarwell/webtrees-missingtombstones?utm_source=github.com&utm_medium=referral&utm_content=bmhm/webtrees-missingtombstones&utm_campaign=Badge_Coverage)
+[![License: Apache-2.0 OR EUPL-1.2](https://img.shields.io/badge/License-Apache--2.0%20OR%20EUPL--1.2-blue.svg)](LICENSE.txt) [![Build Status](https://travis-ci.org/bmhm/webtrees-missingtombstones.svg?branch=wt2.0-next)](https://travis-ci.org/bmhm/webtrees-missingtombstones) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9c4d0742754545a3b7bde6d521897f9a)](https://www.codacy.com/manual/bmarwell/webtrees-missingtombstones?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bmhm/webtrees-missingtombstones&amp;utm_campaign=Badge_Grade) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/9c4d0742754545a3b7bde6d521897f9a)](https://www.codacy.com/manual/bmarwell/webtrees-missingtombstones?utm_source=github.com&utm_medium=referral&utm_content=bmhm/webtrees-missingtombstones&utm_campaign=Badge_Coverage)
 
 ## Contents
 
@@ -75,17 +75,12 @@ You can generate a `messages.pot`-file using `make update` from the command line
 ## License
 
 webtrees missing tombstones: online genealogy missing tombstones-module.
-Copyright (C) 2015 webtrees development team
+Copyright (C) 2015-2025 Benjamin Marwell
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+This project is dual-licensed under:
+- Apache License 2.0 (Apache-2.0)
+- European Union Public License 1.2 or later (EUPL-1.2)
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
+You may use this software under the terms of either license at your choice.
 
-You should have received a copy of the GNU General Public License
- along with this program. If not, see <http://www.gnu.org/licenses/>.
+See the [LICENSE.txt](LICENSE.txt) file for the full license texts.
