@@ -14,10 +14,10 @@
   "description" : "Creates a report about missing tombstones",
   "license" : "Apache-2.0 OR EUPL-1.2",
   "require" : {
-    "php" : "^7.4 || ^8.0"
+    "php" : "^8.3"
   },
   "require-dev": {
-    "fisharebest/webtrees": "^2.1.25",
+    "fisharebest/webtrees": "^2.2.4",
     "phpunit/phpunit": "^9.5"
   },
   "authors" : [{
