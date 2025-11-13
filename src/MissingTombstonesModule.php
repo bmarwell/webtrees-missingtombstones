@@ -26,6 +26,7 @@ use Fisharebest\Webtrees\Module\ModuleCustomInterface;
 use Fisharebest\Webtrees\Module\ModuleCustomTrait;
 use Fisharebest\Webtrees\Module\ModuleListInterface;
 use Fisharebest\Webtrees\Module\ModuleListTrait;
+use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Services\LocalizationService;
 use Fisharebest\Webtrees\Tree;
 use Fisharebest\Webtrees\View;
@@ -208,7 +209,8 @@ class MissingTombstonesModule extends AbstractModule implements ModuleCustomInte
         }
 
         // convert to new search format.
-        $tombstoneListService = new TombstoneListService(app(LocalizationService::class), $tree);
+        $localizationService = Registry::container()->get(LocalizationService::class);
+        $tombstoneListService = new TombstoneListService($localizationService, $tree);
         $tombstoneListService->individualsWithoutTombstone($years);
 
         $individuals = array();

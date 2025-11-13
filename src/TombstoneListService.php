@@ -22,6 +22,7 @@ use Fisharebest\Webtrees\Date;
 use Fisharebest\Webtrees\Gedcom;
 use Fisharebest\Webtrees\Individual;
 use Fisharebest\Webtrees\Media;
+use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Services\LocalizationService;
 use Fisharebest\Webtrees\Tree;
 use Illuminate\Database\Capsule\Manager as DB;
@@ -80,13 +81,13 @@ class TombstoneListService
         $myindilist = array();
         foreach ($rows as $row) {
             try {
-                $person = Individual::getInstance($row->i_id, $this->tree);
+                $person = Registry::individualFactory()->make($row->i_id, $this->tree);
             } catch (Exception $ex) {
                 // TODO: log exception.
                 continue;
             }
 
-            if (static::personHasTombstone($person)) {
+            if ($person === null || static::personHasTombstone($person)) {
                 // same as array_push($myindilist, $person);
                 continue;
             }
@@ -112,7 +113,7 @@ class TombstoneListService
         preg_match_all('/\n(\d) OBJE @(' . Gedcom::REGEX_XREF . ')@/', $person->gedcom(), $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
             try {
-                $mediafound = Media::getInstance($match[2], $person->tree());
+                $mediafound = Registry::mediaFactory()->make($match[2], $person->tree());
             } catch (Exception $ex) {
                 // TODO: log exception.
                 continue;
