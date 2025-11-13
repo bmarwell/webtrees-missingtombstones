@@ -1,25 +1,28 @@
 {
   "autoload" : {
     "psr-4" : {
-      "bmarwell\\WebtreesModules\\MissingTombstones\\" : "."
+      "bmhm\\WebtreesModules\\MissingTombstones\\" : "./src"
     }
   },
-  "name" : "BMarwell/webtrees-missingtombstones",
-  "type" : "MISSINGTOMBSTONE",
+  "autoload-dev": {
+    "psr-4": {
+      "bmhm\\WebtreesModules\\MissingTombstones\\" : "tests/unit"
+    }
+  },
+  "name" : "bmhm/webtrees-missingtombstones",
+  "type" : "library",
   "description" : "Creates a report about missing tombstones",
-  "license" : "GPLv3",
+  "license" : "Apache-2.0 OR EUPL-1.2",
   "require" : {
-    "php" : ">=5.4",
-    "fisharebest/webtrees" : "1.7.9"
+    "php" : "^8.3"
   },
   "require-dev": {
-    "phpunit/phpunit": "5.5.*",
-    "satooshi/php-coveralls": "1.0.1",
-    "codacy/coverage": "dev-master"
+    "fisharebest/webtrees": "^2.2.4",
+    "phpunit/phpunit": "^9.5"
   },
   "authors" : [{
     "name" : "Benjamin Marwell",
-    "email" : "bmarwell@gmail.com",
+    "email" : "bmarwell+webtrees@gmail.com",
     "homepage" : "http://www.bmarwell.de/"
   }
   ]

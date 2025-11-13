@@ -1,11 +1,11 @@
 language: php
 
 php:
-  - '5.6'
-  - '7.0'
-  - '7.1'
-  - hhvm
-  # - nightly # does not have xdebug at the moment
+  - '7.2.8' # current requirement for webtrees, 7.2.23 was released 2019-09-26.
+  - '7.3'
+  - '7.4snapshot' # 7.4.0RC3 released 2019-10-03
+  # - hhvm not supported anymore by composer.
+  # - nightly # gitlib requires ^7.0, so no build either.
 
 ## Non-sudo environments are faster
 sudo: false
@@ -22,14 +22,14 @@ before_script:
   - if [ -f "$HOME/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini" ]; then cp $HOME/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini /tmp/; phpenv config-rm xdebug.ini; fi
   - travis_retry composer self-update
   - travis_retry composer install --ignore-platform-reqs --no-interaction --prefer-source
-  - travis_retry composer install -n  
+  - travis_retry composer install -n
   - if [ -f "/tmp/xdebug.ini" ]; then phpenv config-add /tmp/xdebug.ini; fi
   - if [[ $TRAVIS_PHP_VERSION =~ ^hhvm ]]; then echo 'xdebug.enable = On' >> /etc/hhvm/php.ini; fi
 
 script:
-  - travis_retry vendor/bin/phpunit -c phpunit.xml
+  - travis_retry vendor/bin/phpunit --coverage-clover=coverage.xml
 
 after_script:
-  - if [[ $(phpenv version-name) =~ "7.1" ]]; then travis_retry vendor/bin/coveralls -v; fi
-  - if [[ $(phpenv version-name) =~ "7.1" ]]; then travis_retry php vendor/bin/codacycoverage clover build/logs/clover.xml; fi
+  - if [[ $(phpenv version-name) =~ "7.2" ]]; then travis_retry bash <(curl -s https://codecov.io/bash); fi
+  - if [[ $(phpenv version-name) =~ "7.2" ]]; then travis_retry php vendor/bin/codacycoverage clover ./coverage.xml; fi
 

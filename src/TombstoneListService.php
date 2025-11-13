@@ -1,0 +1,150 @@
+<?php
+/**
+ * webtrees: online genealogy
+ * Copyright (C) 2019 webtrees development team
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+declare (strict_types = 1);
+
+namespace bmhm\WebtreesModules\MissingTombstones;
+
+use Exception;
+use Fisharebest\Webtrees\Date;
+use Fisharebest\Webtrees\Gedcom;
+use Fisharebest\Webtrees\Individual;
+use Fisharebest\Webtrees\Media;
+use Fisharebest\Webtrees\Registry;
+use Fisharebest\Webtrees\Services\LocalizationService;
+use Fisharebest\Webtrees\Tree;
+use Illuminate\Database\Capsule\Manager as DB;
+use Illuminate\Database\Query\JoinClause;
+
+class TombstoneListService
+{
+    private LocalizationService $localization_service;
+
+    private Tree $tree;
+
+    /**
+     * IndividualListService constructor.
+     */
+    public function __construct(LocalizationService $localization_service, Tree $tree)
+    {
+        $this->localization_service = $localization_service;
+        $this->tree = $tree;
+    }
+
+    /**
+     * Search individuals without a tombstone.
+     *
+     * @param int $numYearsPast The number of years where headstones are expected to be removed.
+     *                          Defaults to 30 years.
+     *
+     * @return Individual[]
+     */
+    public function individualsWithoutTombstone(int $numYearsPast = 30): array
+    {
+        $startyear = date("Y") - $numYearsPast;
+        $month = date("M");
+        $day = date("d");
+        $date = new Date("$day $month $startyear");
+
+        $query = DB::table('individuals')
+            ->join('dates', static function (JoinClause $join): void {
+                $join
+                    ->on('d_gid', '=', 'i_id')
+                    ->on('d_file', '=', 'i_file');
+            })
+            ->where('d_fact', '=', 'DEAT')
+            ->where('i_file', '=', $this->tree->id())
+            ->where('d_julianday1', '>', $date->minimumJulianDay());
+        // TODO: And where (julian) date > $date
+
+        $rows = $query->get()->all();
+
+        // check results if already having a tombstone media.
+        $myindilist = [];
+        foreach ($rows as $row) {
+            try {
+                $person = Registry::individualFactory()->make($row->i_id, $this->tree);
+            } catch (Exception $ex) {
+                // TODO: log exception.
+                continue;
+            }
+
+            if ($person === null || static::personHasTombstone($person)) {
+                // same as array_push($myindilist, $person);
+                continue;
+            }
+
+            $myindilist[] = $person;
+            // next result
+        }
+
+        return $myindilist;
+    }
+
+    /**
+     * @param Individual|null $person
+     * @return Media[]
+     */
+    private static function findMedia(?Individual $person): array
+    {
+        if ($person === null) {
+            return [];
+        }
+
+        $media = [];
+        $matches = [];
+
+        preg_match_all('/\n(\d) OBJE @(' . Gedcom::REGEX_XREF . ')@/', $person->gedcom(), $matches, PREG_SET_ORDER);
+        foreach ($matches as $match) {
+            try {
+                $mediafound = Registry::mediaFactory()->make($match[2], $person->tree());
+            } catch (Exception $ex) {
+                // TODO: log exception.
+                continue;
+            }
+
+            if (null === $mediafound) {
+                continue;
+            }
+
+            $media[] = $mediafound;
+        }
+
+        return $media;
+    }
+
+    /**
+     * Check if a person has a tombstone media attached.
+     *
+     * @param Individual|null $person
+     * @return bool
+     */
+    public static function personHasTombstone(?Individual $person): bool
+    {
+        if ($person === null) {
+            return false;
+        }
+
+        $linkedMedia = static::findMedia($person);
+
+        foreach ($linkedMedia as $media) {
+            if ($media->getMediaType() === "tombstone") {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}

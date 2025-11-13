@@ -15,15 +15,19 @@ all: $(LANGUAGE_DIR)/messages.pot update build/missingtombstones.tar.bz2
 clean:
 	rm -Rf build/* $(LANGUAGE_DIR)/messages.pot
 	rm -Rf build
+	rm -Rf data/cache/*.php
+	rm -Rf data/cache/_transformation.cache
+	rm -Rf vendor
+	find data/cache/* -type d -exec rm -r '{}' +
 
 .PHONY: update
 update: $(LANGUAGE_DIR)/messages.pot $(MO_FILES)
 
 .PHONY: vendor
 vendor:
-	php composer.phar self-update
-	php composer.phar update
-	php composer.phar dump-autoload --optimize
+	php ./composer.phar self-update
+	php ./composer.phar update
+	php ./composer.phar dump-autoload --optimize
 
 .PHONY: build/missingtombstones
 build/missingtombstones: $(LANGUAGE_DIR)/messages.pot update
@@ -35,7 +39,7 @@ build/missingtombstones.tar.bz2: build/missingtombstones
 	tar cvjf $@ $^
 
 $(LANGUAGE_DIR)/messages.pot: $(LANGUAGE_SRC)
-	echo $^ | xargs xgettext --package-name="webtrees-missingtombstones" --package-version=1.0 --msgid-bugs-address=bmarwell@gmail.com --no-wrap --language=PHP --add-comments=I18N --from-code=utf-8 --keyword=translate:1 --keyword=translateContext:1c,2 --keyword=plural:1,2 --output=$@
+	echo $^ | xargs xgettext --package-name="webtrees-missingtombstones" --package-version=1.0 --msgid-bugs-address=bmarwell+webtrees@gmail.com --no-wrap --language=PHP --add-comments=I18N --from-code=utf-8 --keyword=translate:1 --keyword=translateContext:1c,2 --keyword=plural:1,2 --output=$@
 
 $(PO_FILES): $(LANGUAGE_DIR)/messages.pot
 	msgmerge --no-wrap --sort-output --no-fuzzy-matching --output=$@ $@ $<
