@@ -28,10 +28,10 @@ jobs:
           php-version: '8.3'
           extensions: mbstring, intl, gettext
       
-      - name: Install gettext tools
+      - name: Install build tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y gettext
+          sudo apt-get install -y gettext zstd
       
       - name: Compile translations
         run: |
@@ -61,30 +61,13 @@ jobs:
           echo "Early Access Build - $(date -u '+%Y-%m-%d %H:%M:%S UTC')" > build/modules_v4/missingtombstones/VERSION.txt
           echo "Commit: ${{ github.sha }}" >> build/modules_v4/missingtombstones/VERSION.txt
       
-      - name: Create .tar.gz archive
+      - name: Create archives and checksums
         run: |
           cd build
           tar czf ../webtrees-missingtombstones-early-access.tar.gz modules_v4/
-          cd ..
-      
-      - name: Create .zip archive
-        run: |
-          cd build
           zip -r ../webtrees-missingtombstones-early-access.zip modules_v4/
-          cd ..
-      
-      - name: Install zstd
-        run: |
-          sudo apt-get install -y zstd
-      
-      - name: Create .tar.zst archive
-        run: |
-          cd build
           tar -I zstd -cf ../webtrees-missingtombstones-early-access.tar.zst modules_v4/
           cd ..
-      
-      - name: Generate checksums
-        run: |
           sha256sum webtrees-missingtombstones-early-access.tar.gz > checksums.txt
           sha256sum webtrees-missingtombstones-early-access.zip >> checksums.txt
           sha256sum webtrees-missingtombstones-early-access.tar.zst >> checksums.txt
