@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <phpunit
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
 
   bootstrap="tests/unit/bootstrap.php"
   colors="true"
@@ -27,17 +28,16 @@
     </testsuite>
   </testsuites>
 
-  <filter>
-    <whitelist processUncoveredFilesFromWhitelist="true">
+  <coverage processUncoveredFiles="true">
+    <include>
       <directory suffix=".php">.</directory>
-      <exclude>
-        <directory>./vendor</directory>
-        <directory>./tests</directory>
-      </exclude>
-    </whitelist>
-  </filter>
-
-  <logging>
-    <log type="coverage-clover" target="cov.xml"/>
-  </logging>
+    </include>
+    <exclude>
+      <directory>./vendor</directory>
+      <directory>./tests</directory>
+    </exclude>
+    <report>
+      <clover outputFile="coverage.xml"/>
+    </report>
+  </coverage>
 </phpunit>

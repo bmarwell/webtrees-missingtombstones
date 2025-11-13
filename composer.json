@@ -14,18 +14,19 @@
   "description" : "Creates a report about missing tombstones",
   "license" : "Apache-2.0 OR EUPL-1.2",
   "require" : {
-    "php" : ">=7.1.8"
+    "php" : "^7.4 || ^8.0"
   },
   "require-dev": {
-    "codacy/coverage": "dev-master",
-    "fisharebest/webtrees": "2.0.0-beta4",
-    "phpunit/phpunit": "^8.4",
-    "codeception/aspect-mock": "^3.0"
+    "fisharebest/webtrees": "^2.1.25",
+    "phpunit/phpunit": "^9.5",
+    "codeception/aspect-mock": "dev-master"
   },
   "authors" : [{
     "name" : "Benjamin Marwell",
     "email" : "bmarwell+webtrees@gmail.com",
     "homepage" : "http://www.bmarwell.de/"
   }
-  ]
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }

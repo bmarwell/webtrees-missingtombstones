@@ -19,10 +19,11 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - '7.2'
-          - '7.3'
           - '7.4'
           - '8.0'
+          - '8.1'
+          - '8.2'
+          - '8.3'
     
     steps:
       - name: Checkout code
@@ -57,7 +58,7 @@ jobs:
         run: vendor/bin/phpunit --coverage-clover=coverage.xml
       
       - name: Upload coverage to Codecov
-        if: matrix.php-version == '7.4'
+        if: matrix.php-version == '8.1'
         uses: codecov/codecov-action@v3
         with:
           files: ./coverage.xml
@@ -72,10 +73,11 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - '7.2'
-          - '7.3'
           - '7.4'
           - '8.0'
+          - '8.1'
+          - '8.2'
+          - '8.3'
     
     steps:
       - name: Checkout code
