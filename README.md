@@ -28,8 +28,20 @@ on tombstones, gravestones, headstones (like birth year, year of death, maiden n
 
 ### Installation
 
-1. Extract the `.tar.bz2` file to your `webtrees/modules_v3`-folder.
-2. Go to the admin menu and modules, then enable the Missing Tombstones-Module.
+#### From Early Access Release (Recommended for webtrees 2.2+)
+
+1. Download the latest early-access release archive (`.tar.gz`, `.zip`, or `.tar.zst`) from the [early-access release page](../../releases/tag/early-access).
+2. Extract the archive to your webtrees installation directory (it will create the `modules_v4/missingtombstones` folder automatically).
+3. Go to the admin menu and modules, then enable the Missing Tombstones-Module.
+
+The early-access releases include pre-compiled translation files, so no additional compilation is needed.
+
+#### From Source
+
+1. Clone or download this repository
+2. Compile translations using `make update` (requires gettext tools)
+3. Copy the `module.php` and `src` directory to `webtrees/modules_v4/missingtombstones/`
+4. Go to the admin menu and modules, then enable the Missing Tombstones-Module.
 
 ### Verification
 
